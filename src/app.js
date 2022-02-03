@@ -1,16 +1,17 @@
 const express = require('express');
 const cors = require('cors')
 const app = express();
-const productsRouter = require('./routes/products');
 
 //settings
 app.set('port',process.env.PORT || 4000)
+app.use(express.static('public'));
 
 //middlewares
 app.use(cors());
 app.use(express.json());
 
 //routes
-app.use('/api/products', require('./routes/products'))
+app.use('/api/products', require('./routes/main'));
+
 
 module.exports = app;
