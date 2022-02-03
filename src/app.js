@@ -12,6 +12,8 @@ app.use(express.json());
 
 //routes
 app.use('/api/products', require('./routes/main'));
-
+app.get('/', (req,res)=>{
+    res.send('Famox Api')
+})
 
 module.exports = app;
