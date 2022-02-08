@@ -8,7 +8,7 @@ const getProducts = async (req,res) => {
 
 const createProduct = (req,res) => {
     const {nombre, uso, rango, anmat, gases, conector, manual, img } =  req.body;
-    new Gasoterapia({
+    let product = new Gasoterapia({
         nombre,
         uso,
         img,
@@ -18,12 +18,20 @@ const createProduct = (req,res) => {
         conector,
         manual
     })
-    res.json({message: 'New product'})
+    product.save((err, product)=>{
+        err && res.status(500).send(err.message);
+
+        res.status(200).json(product);
+    })
 }
 
-const getProductById = (req,res) => res.json({
-    message: 'Product'
-})
+const getProductById = (req,res) => {
+    Gasoterapia.findById(req.params.id, (err, product)=>{
+        err && res.status(500).send(err.message);
+
+        res.status(200).json(product)
+    })
+}
 
 const deleteProduct = (req,res) => res.json({
     message: 'Deleted'

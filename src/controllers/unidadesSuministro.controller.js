@@ -1,9 +1,37 @@
 const unidSumController = {}
 const UnidadesSuministro = require('../models/UnidadesSuministro');
 
-unidSumController.getProducts = async (req,res) => {
+const getProducts = async (req,res) => {
     const products =  await UnidadesSuministro.find();
     res.json({products});
 }
 
-module.exports = unidSumController;
+const createProduct = (req,res) => {
+    const {nombre, descripcion, img, anmat } =  req.body;
+    let product = new UnidadesSuministro({
+        nombre,
+        descripcion,
+        img,
+        anmat
+    })
+    product.save((err, product)=>{
+        err && res.status(500).send(err.message);
+
+        res.status(200).json(product);
+    })
+}
+
+const getProductById = (req,res) => {
+    UnidadesSuministro.findById(req.params.id, (err, product)=>{
+        err && res.status(500).send(err.message);
+
+        res.status(200).json(product)
+    })
+}
+
+const deleteProduct = (req,res) => res.json({
+    message: 'Deleted'
+})
+
+
+module.exports = {createProduct, getProductById, getProducts, deleteProduct};
