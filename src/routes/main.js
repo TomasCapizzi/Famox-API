@@ -6,10 +6,22 @@ const accesoriosController = require('../controllers/accesorios.controller');
 const conectoresController = require('../controllers/conectores.controller');
 const usController = require('../controllers/unidadesSuministro.controller')
 
-router.get('/gasoterapia', gasoterapiaController.getProducts);
-router.get('/frascos', frascosController.getProducts);
-router.get('/accesorios', accesoriosController.getProducts);
-router.get('/conectores', conectoresController.getProducts);
-router.get('/unidades-suministro', usController.getProducts);
+const gasoterapiaRouter = require('./products/gasoterapia');
+const usRouter = require('./products/unidadesSuministro');
+const accesoriosRouter = require('./products/accesorios');
+const frascosRouter = require('./products/frascos');
+const conectoresRouter = require('./products/conectores');
 
-module.exports = router
+//GASOTERAPIA
+router.use('/gasoterapia', gasoterapiaRouter);
+router.use('/unidades-suministro', usRouter)
+router.use('/accesorios', accesoriosRouter);
+router.use('/frascos', frascosRouter);
+router.use('/conectores', conectoresRouter);
+// FRASCOS
+
+
+// CONECTORES
+
+
+module.exports = router;
