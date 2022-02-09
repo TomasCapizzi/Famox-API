@@ -40,7 +40,7 @@ const gasoterapiaSchema = new Schema({
         required: false
     },
     img: {
-        type: Object,
+        type: String,
         required: false
     },
 })
