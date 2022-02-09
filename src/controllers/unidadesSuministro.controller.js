@@ -7,10 +7,10 @@ const getProducts = async (req,res) => {
 }
 
 const createProduct = (req,res) => {
-    const {nombre, descripcion, img, anmat } =  req.body;
+    const {nombre, uso, img, anmat } =  req.body;
     let product = new UnidadesSuministro({
         nombre,
-        descripcion,
+        uso,
         img,
         anmat
     })
