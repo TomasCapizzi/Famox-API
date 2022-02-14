@@ -32,6 +32,7 @@ const gasoterapiaSchema = new Schema({
         ss_aga:{type:Boolean},
         ohmeda:{type:Boolean},
         on:{type:Boolean},
+        cu:{type:Boolean},
         iram:{type:Boolean},
         yugo:{type:Boolean},
     },
