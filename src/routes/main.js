@@ -11,17 +11,13 @@ const usRouter = require('./products/unidadesSuministro');
 const accesoriosRouter = require('./products/accesorios');
 const frascosRouter = require('./products/frascos');
 const conectoresRouter = require('./products/conectores');
+const modelosRouter = require('./products/modelos');
 
 //GASOTERAPIA
 router.use('/gasoterapia', gasoterapiaRouter);
 router.use('/unidades-suministro', usRouter)
 router.use('/accesorios', accesoriosRouter);
-router.use('/frascos', frascosRouter);
+router.use('/modelos', modelosRouter);
 router.use('/conectores', conectoresRouter);
-// FRASCOS
-
-
-// CONECTORES
-
 
 module.exports = router;
