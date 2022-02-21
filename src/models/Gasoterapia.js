@@ -13,6 +13,9 @@ const gasoterapiaSchema = new Schema({
         type: String,
         required: false
     },
+    gas: {type: Boolean},
+    conexion: {type: Boolean},
+    modelos: {type: Boolean},
     anmat: {
         type: Boolean,
         required: false
