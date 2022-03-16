@@ -6,9 +6,6 @@ const postContacto = async (req,res) => {
     const {nombre,empresa, email, asunto, mensaje} = req.body;
     //console.log(nombre, email, empresa, asunto, mensaje);
 
-    // Se puede mandar uno a famox y otro al usuario indicando que se recibió el correo
-
-
     //////// Mail para atencion al cliente famox ///////////////////
     contenidoMail = `
     <h1>${asunto}</h1>
@@ -36,15 +33,23 @@ const postContacto = async (req,res) => {
         }
     })
 
-    const info = await transporter.sendMail({
+    const mailOptions = {
         from: `Contacto desde ${empresa} <mail@famox.con.ar>`, //Nuestro correo y servidor q nos avisa
         to: 'atencion.cliente@famox.com.ar',
         subject: asunto,
         html: contenidoMail
+    }
+
+    await transporter.sendMail(mailOptions, (error, info)=>{
+        if(error){
+            res.status(500).send(error.message)
+        } else {
+            console.log('Mail enviado');
+            res.status(200).jsonp(req.body)
+        }
     })
 
     console.log('Mensaje enviado', info.messageId);
-    ///////////////////////////////////////////
     ///////////////////////////////////////////
     ///////////////////////////////////////////
     ///////////////////////////////////////////
