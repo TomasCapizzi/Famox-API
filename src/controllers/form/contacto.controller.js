@@ -48,8 +48,6 @@ const postContacto = async (req,res) => {
             res.status(200).jsonp(req.body)
         }
     })
-
-    console.log('Mensaje enviado', info.messageId);
     ///////////////////////////////////////////
     ///////////////////////////////////////////
     ///////////////////////////////////////////
