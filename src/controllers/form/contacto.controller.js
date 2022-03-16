@@ -1,8 +1,10 @@
+require('dotenv').config();
 const nodemailer = require('nodemailer')
 
 const postContacto = async (req,res) => {
     console.log(req.body);
     const {nombre,empresa, email, asunto, mensaje} = req.body;
+    console.log(nombre, email, empresa, asunto, mensaje);
 
     // Se puede mandar uno a famox y otro al usuario indicando que se recibió el correo
 
@@ -26,8 +28,8 @@ const postContacto = async (req,res) => {
         secure: false,
         auth: {
             // user variables de entorno para esto
-            user: 'atencion.cliente@famox.com.ar',
-            pass: 'Fx-ac-2003*'
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_KEY
         },
         tls: {
             rejectUnauthorized: false
@@ -60,8 +62,8 @@ const postContacto = async (req,res) => {
         secure: false,
         auth: {
             // user variables de entorno para esto
-            user: 'atencion.cliente@famox.com.ar',
-            pass: 'Fx-ac-2003*'
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_KEY
         },
         tls: {
             rejectUnauthorized: false
