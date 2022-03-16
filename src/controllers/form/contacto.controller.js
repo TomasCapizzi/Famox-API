@@ -4,7 +4,6 @@ const nodemailer = require('nodemailer')
 const postContacto = async (req,res) => {
     console.log(req.body);
     const {nombre,empresa, email, asunto, mensaje} = req.body;
-    //console.log(nombre, email, empresa, asunto, mensaje);
 
     //////// Mail para atencion al cliente famox ///////////////////
     contenidoMail = `
@@ -24,7 +23,6 @@ const postContacto = async (req,res) => {
         port: 587,
         secure: false,
         auth: {
-            // user variables de entorno para esto
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_KEY
         },
@@ -45,7 +43,7 @@ const postContacto = async (req,res) => {
             res.status(500).send(error.message)
         } else {
             console.log('Mail enviado');
-            res.status(200).jsonp(req.body)
+            //res.status(200).jsonp(req.body)
         }
     })
     ///////////////////////////////////////////
@@ -55,7 +53,7 @@ const postContacto = async (req,res) => {
     /////////// Mail para el usuario  ///////////
 
     contenidoMailUsuario = `
-    <h1>Famox SA</h1>
+    <h3>Famox SA</h3>
     <p>Ya recibimos tu consulta ${nombre}, te estaremos respondiendo a la brevedad</p>
     `;
 
@@ -64,7 +62,6 @@ const postContacto = async (req,res) => {
         port: 587,
         secure: false,
         auth: {
-            // user variables de entorno para esto
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_KEY
         },
@@ -85,7 +82,7 @@ const postContacto = async (req,res) => {
             res.status(500).send(error.message)
         } else {
             console.log('Mail enviado');
-            res.status(200).jsonp(req.body)
+            //res.status(200).jsonp(req.body)
         }
     })
 
