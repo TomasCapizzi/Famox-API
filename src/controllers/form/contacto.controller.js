@@ -4,12 +4,12 @@ const nodemailer = require('nodemailer')
 const postContacto = async (req,res) => {
     console.log(req.body);
     const {nombre,empresa, email, asunto, mensaje} = req.body;
-    console.log(nombre, email, empresa, asunto, mensaje);
+    //console.log(nombre, email, empresa, asunto, mensaje);
 
     // Se puede mandar uno a famox y otro al usuario indicando que se recibió el correo
 
 
-    //////// Mail para info famox ///////////////////
+    //////// Mail para atencion al cliente famox ///////////////////
     contenidoMail = `
     <h1>${asunto}</h1>
     <ul>
@@ -70,19 +70,25 @@ const postContacto = async (req,res) => {
         }
     })
 
-    const infoUser = await transporterUser.sendMail({
+    const userMailOptions = {
         from: `Famox <atencion.cliente@famox.com.ar>`, //Nuestro correo y servidor q nos avisa
         to: email, // el email del usuario
         subject: asunto,
         html: contenidoMailUsuario
+    }
+
+    await transporterUser.sendMail(userMailOptions, (error, info)=>{
+        if(error){
+            res.status(500).send(error.message)
+        } else {
+            console.log('Mail enviado');
+            res.status(200).jsonp(req.body)
+        }
     })
 
-    console.log('Mail enviado', infoUser.messageId);
+    
 
 }
-
-
-
 const mostrarAlgo = (req,res) => {
     res.send('Contacto')
 }
