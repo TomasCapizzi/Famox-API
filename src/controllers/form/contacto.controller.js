@@ -43,7 +43,7 @@ const postContacto = async (req,res) => {
             res.status(500).send(error.message)
         } else {
             console.log('Mail enviado');
-            //res.status(200).jsonp(req.body)
+            res.status(200).jsonp(req.body)
         }
     })
     ///////////////////////////////////////////
@@ -82,7 +82,7 @@ const postContacto = async (req,res) => {
             res.status(500).send(error.message)
         } else {
             console.log('Mail enviado');
-            //res.status(200).jsonp(req.body)
+            res.status(200).jsonp(req.body)
         }
     })
 
