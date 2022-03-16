@@ -52,8 +52,8 @@ const postContacto = async (req,res) => {
     /////////// Mail para el usuario  ///////////
 
     contenidoMailUsuario = `
-    <h1>Famox Contacto</h1>
-    <p>Ya recibimos tu consulta ${nombre}</p>
+    <h1>Famox SA</h1>
+    <p>Ya recibimos tu consulta ${nombre}, te estaremos respondiendo a la brevedad</p>
     `;
 
     const transporterUser = nodemailer.createTransport({
