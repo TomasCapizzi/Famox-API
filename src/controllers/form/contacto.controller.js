@@ -32,7 +32,7 @@ const postContacto = async (req,res) => {
     })
 
     const mailOptions = {
-        from: `Contacto desde ${empresa} <mail@famox.con.ar>`, //Nuestro correo y servidor q nos avisa
+        from: `Contacto desde ${empresa} <${email}>`, //Nuestro correo y servidor q nos avisa
         to: 'atencion.cliente@famox.com.ar',
         subject: asunto,
         html: contenidoMail
@@ -54,7 +54,7 @@ const postContacto = async (req,res) => {
 
     contenidoMailUsuario = `
     <h3>Famox SA</h3>
-    <p>Ya recibimos tu consulta ${nombre}, te estaremos respondiendo a la brevedad</p>
+    <p>Ya recibimos su consulta ${nombre}, le estaremos respondiendo a la brevedad</p>
     `;
 
     const transporterUser = nodemailer.createTransport({
@@ -71,9 +71,9 @@ const postContacto = async (req,res) => {
     })
 
     const userMailOptions = {
-        from: `Famox <atencion.cliente@famox.com.ar>`, //Nuestro correo y servidor q nos avisa
+        from: `Famox <atencion.cliente@famox.com.ar>`,
         to: email, // el email del usuario
-        subject: asunto,
+        subject: 'Contacto desde Famox SA',
         html: contenidoMailUsuario
     }
 
