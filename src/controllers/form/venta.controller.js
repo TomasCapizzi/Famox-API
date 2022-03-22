@@ -5,6 +5,7 @@ const postCotizacion = async (req,res) => {
     
     const {nombre,empresa, email, carro} = req.body;
     //console.log(carro);
+    
     const htmlGasoterapia = document.createElement('p');
 
     const htmlUnidSum = document.createElement('article');
@@ -19,7 +20,6 @@ const postCotizacion = async (req,res) => {
 
     if(carro){
         for(carr in carro){
-            //console.log(carro[carr]);
             const item = carro[carr]
             if(item.codigo){
                 // es gasoterapia
@@ -28,7 +28,6 @@ const postCotizacion = async (req,res) => {
             }
             else{
                 // es unid sum
-
                 if(item.bajaTension.length > 0){
                     const lista = document.createElement('ul')
                     item.bajaTension.forEach(element => {
@@ -87,9 +86,14 @@ const postCotizacion = async (req,res) => {
         <li>Empresa: ${empresa}</li>
         <li>Email: ${email}</li>
     </ul>
-    ${htmlGasoterapia && htmlGasoterapia}
+    <h5>Pedido</h5>
+    
+
+    `;
+    /*
+        ${htmlGasoterapia && htmlGasoterapia}
     ${htmlUnidSum && htmlUnidSum}
-`;
+    */
 
 
     // user variables de entorno para esto
