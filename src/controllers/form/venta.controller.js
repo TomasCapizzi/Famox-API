@@ -83,7 +83,7 @@ const postCotizacion = async (req,res) => {
         subject: 'Pedido de Cotización',
         html: contenidoMail
     }
-/*
+
     await transporter.sendMail(mailOptions, (error, info)=>{
         if(error){
             res.status(500).send(error.message)
@@ -91,7 +91,7 @@ const postCotizacion = async (req,res) => {
             console.log('Mail enviado');
             res.status(200).jsonp(req.body)
         }
-    })*/
+    })
     ///////////////////////////////////////////
     ///////////////////////////////////////////
     ///////////////////////////////////////////
@@ -122,7 +122,7 @@ const postCotizacion = async (req,res) => {
         subject: 'Contacto desde Famox SA',
         html: contenidoMailUsuario
     }
-/*
+
     await transporterUser.sendMail(userMailOptions, (error, info)=>{
         if(error){
             res.status(500).send(error.message)
@@ -130,7 +130,7 @@ const postCotizacion = async (req,res) => {
             console.log('Mail enviado');
             res.status(200).jsonp(req.body)
         }
-    })*/
+    })
 
     
 }
