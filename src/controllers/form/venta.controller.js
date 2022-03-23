@@ -33,12 +33,14 @@ const postCotizacion = async (req,res) => {
         const longitud = item.longitud ? `Longitud: ${item.longitud}` : ''
 
         return `
-            ${item.nombre.toUpperCase()}
-            ${conexiones}
-            ${bajaTension}
-            ${mediaTension}
-            ${iluminacion}
-            ${longitud}        
+            <h5>${item.nombre.toUpperCase()}</h5>
+            <ul>
+                <li>${conexiones}</li>
+                <li>${bajaTension}</li>
+                <li>${mediaTension}</li>
+                <li>${iluminacion}</li>
+                <li>${longitud} </li>
+            </ul>       
         `
     }
 
