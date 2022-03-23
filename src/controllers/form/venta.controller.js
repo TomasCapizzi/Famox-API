@@ -13,7 +13,7 @@ const postCotizacion = async (req,res) => {
         return `
             <h5>${item.nombre.toUpperCase()}</h5>
             <ul>
-                <li>Código: ${item.codigo}</li>
+                <li>Código: <b>${item.codigo}</b></li>
                 <li>Cantidad: ${item.cantidad}</li>
             </ul>
         `
@@ -27,15 +27,27 @@ const postCotizacion = async (req,res) => {
             )}
         </ul>
         ` : ''
-        const mediaTension = item.mediaTension.length > 0 ? `Media Tensión: ${item.mediaTension.map(
-            media => `${media.nombre} Cantidad: ${media.cantidad}`
-        )}` : ''
-        const iluminacion = item.iluminacion.length > 0 ? `Iluminación: ${item.iluminacion.map(
-            ilu => `${ilu.nombre} Cantidad: ${ilu.cantidad}`
-        )}` : ''
-        const conexiones = item.conexiones.length > 0 ?  `Conexiones: ${item.conexiones.map(
-            conex => `${conex.conector} + ${conex.gas} / Cantidad: ${conex.cantidad} `
-        )}` : ''
+        const mediaTension = item.mediaTension.length > 0 ? `Media Tensión: 
+        <ul>
+            ${item.mediaTension.map(
+                media => `<li>${media.nombre} Cantidad: ${media.cantidad}</li>`
+            )}
+        </ul>
+        ` : ''
+        const iluminacion = item.iluminacion.length > 0 ? `Iluminación: 
+        <ul>
+            ${item.iluminacion.map(
+                ilu => `<li>${ilu.nombre} Cantidad: ${ilu.cantidad}</li>`
+            )}
+        </ul>
+        ` : ''
+        const conexiones = item.conexiones.length > 0 ?  `Conexiones: 
+        <ul>
+            ${item.conexiones.map(
+                conex => `<li>${conex.conector} + ${conex.gas} / Cantidad: ${conex.cantidad}</li>`
+            )}
+        </ul>
+        ` : ''
         const longitud = item.longitud ? `Longitud: ${item.longitud}` : ''
 
         return `
