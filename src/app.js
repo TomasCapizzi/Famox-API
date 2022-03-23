@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
 const app = express();
 const mainRouter = require('./routes/main');
 const formRouter = require('./routes/form');
@@ -10,6 +12,13 @@ app.set('port',process.env.PORT || 4000);
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+
+//set views file
+//app.set('views',path.join(__dirname,'views'));
+			
+//set view engine
+//app.set('view engine', 'ejs');
+app.use(bodyParser.json());
 
 //middlewares
 app.use(cors());
