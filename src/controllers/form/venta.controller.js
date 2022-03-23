@@ -5,80 +5,43 @@ const postCotizacion = async (req,res) => {
     
     const {nombre,empresa, email, carro} = req.body;
     //console.log(carro);
-    
-    const htmlGasoterapia = document.createElement('p');
-
-    const htmlUnidSum = document.createElement('article');
-
-    /*
-    const bajaTension = document.createElement('ul');
-    const mediaTension = document.createElement('ul');
-    const conexiones = document.createElement('ul');
-    const iluminacion = document.createElement('ul');
-    const longitud = document.createElement('p')
-    */
-
-    if(carro){
-        for(carr in carro){
-            const item = carro[carr]
-            if(item.codigo){
-                // es gasoterapia
-                console.log(item);                
-                htmlGasoterapia.innerText = ` ${item.nombre} - ${item.codigo} / Cantidad: ${item.cantidad}`                
-            }
-            else{
-                // es unid sum
-                if(item.bajaTension.length > 0){
-                    const lista = document.createElement('ul')
-                    item.bajaTension.forEach(element => {
-                        const item = document.createElement('li');
-                        item.innerHTML = `${element.nombre} / Cantidad: ${element.cantidad}`
-                        lista.appendChild(item)
-                    });
-                    htmlUnidSum.appendChild(lista)
-
-                }
-
-                if(item.mediaTension.length > 0){
-                    const lista = document.createElement('ul')
-                    item.mediaTension.forEach(element => {
-                        const item = document.createElement('li');
-                        item.innerHTML = `${element.nombre} / Cantidad: ${element.cantidad}`
-                        lista.appendChild(item)
-                    });
-                    htmlUnidSum.appendChild(lista)
-                }
-
-                if(item.conexiones.length > 0){
-                    const lista = document.createElement('ul')
-                    item.conexiones.forEach(element => {
-                        const item = document.createElement('li');
-                        item.innerHTML = `${element.nombre} / Cantidad: ${element.cantidad}`
-                        lista.appendChild(item)
-                    });
-                    htmlUnidSum.appendChild(lista)
-                }
-
-                if(item.iluminacion.length > 0){
-                    const lista = document.createElement('ul')
-                    item.iluminacion.forEach(element => {
-                        const item = document.createElement('li');
-                        item.innerHTML = `${element.nombre} / Cantidad: ${element.cantidad}`
-                        lista.appendChild(item)
-                    });
-                    htmlUnidSum.appendChild(lista)
-                }
-
-                if(item.longitud !== ''){
-                    const longitud = document.createElement('p').innerText(longitud)
-                    htmlUnidSum.appendChild(longitud)
-                }
-            }
-        }
-    }
+       
     
 
     //////// Mail para ventas famox ///////////////////
+    const gasoterapiaItem =(item)=> {
+        return `
+            ${item.nombre.toUpperCase()}
+            Código: ${item.codigo}
+            Cantidad: ${item.cantidad}
+        `
+    }
+    const unidSumItem = (item)=> {
+
+        const bajaTension = item.bajaTension.length > 0 ? `Baja Tensión: ${item.bajaTension.map(
+            baja => `${baja.nombre} Cantidad: ${baja.cantidad}`
+        )}` : ''
+        const mediaTension = item.mediaTension.length > 0 ? `Media Tensión: ${item.mediaTension.map(
+            media => `${media.nombre} Cantidad: ${media.cantidad}`
+        )}` : ''
+        const iluminacion = item.iluminacion.length > 0 ? `Iluminación: ${item.iluminacion.map(
+            ilu => `${ilu.nombre} Cantidad: ${ilu.cantidad}`
+        )}` : ''
+        const conexiones = item.conexiones.length > 0 ?  `Conexiones: ${item.conexiones.map(
+            conex => `${conex.conector} + ${conex.gas} / Cantidad: ${conex.cantidad} `
+        )}` : ''
+        const longitud = item.longitud ? `Longitud: ${item.longitud}` : ''
+
+        return `
+            ${item.nombre.toUpperCase()}
+            ${conexiones}
+            ${bajaTension}
+            ${mediaTension}
+            ${iluminacion}
+            ${longitud}        
+        `
+    }
+
     contenidoMail = `
     <h1>Pedido ${empresa}</h1>
     <ul>
@@ -87,15 +50,19 @@ const postCotizacion = async (req,res) => {
         <li>Email: ${email}</li>
     </ul>
     <h5>Pedido</h5>
+    ${carro.map(
+        item => item.codigo? 
+        `GASOTERAPIA :
+        ${gasoterapiaItem(item)}` 
+        : `UNIDAD SUMINISTRO:
+            ${unidSumItem(item)}`
+    )}`;
+//JSON.stringify(item)
+
+
+    console.log(contenidoMail);
+
     
-
-    `;
-    /*
-        ${htmlGasoterapia && htmlGasoterapia}
-    ${htmlUnidSum && htmlUnidSum}
-    */
-
-
     // user variables de entorno para esto
     const transporter = nodemailer.createTransport({
         host: 'smtp.famox.com.ar',
@@ -116,7 +83,7 @@ const postCotizacion = async (req,res) => {
         subject: 'Pedido de Cotización',
         html: contenidoMail
     }
-
+/*
     await transporter.sendMail(mailOptions, (error, info)=>{
         if(error){
             res.status(500).send(error.message)
@@ -124,7 +91,7 @@ const postCotizacion = async (req,res) => {
             console.log('Mail enviado');
             res.status(200).jsonp(req.body)
         }
-    })
+    })*/
     ///////////////////////////////////////////
     ///////////////////////////////////////////
     ///////////////////////////////////////////
@@ -155,7 +122,7 @@ const postCotizacion = async (req,res) => {
         subject: 'Contacto desde Famox SA',
         html: contenidoMailUsuario
     }
-
+/*
     await transporterUser.sendMail(userMailOptions, (error, info)=>{
         if(error){
             res.status(500).send(error.message)
@@ -163,7 +130,7 @@ const postCotizacion = async (req,res) => {
             console.log('Mail enviado');
             res.status(200).jsonp(req.body)
         }
-    })
+    })*/
 
     
 }
