@@ -58,7 +58,8 @@ const postCotizacion = async (req,res) => {
                 <li>${mediaTension}</li>
                 <li>${iluminacion}</li>
                 <li>${longitud} </li>
-            </ul>       
+            </ul>
+            <br>   
         `
     }
 
