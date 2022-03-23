@@ -11,16 +11,22 @@ const postCotizacion = async (req,res) => {
     //////// Mail para ventas famox ///////////////////
     const gasoterapiaItem =(item)=> {
         return `
-            ${item.nombre.toUpperCase()}
-            Código: ${item.codigo}
-            Cantidad: ${item.cantidad}
+            <h5>${item.nombre.toUpperCase()}</h5>
+            <ul>
+                <li>Código: ${item.codigo}</li>
+                <li>Cantidad: ${item.cantidad}</li>
+            </ul>
         `
     }
     const unidSumItem = (item)=> {
 
-        const bajaTension = item.bajaTension.length > 0 ? `Baja Tensión: ${item.bajaTension.map(
-            baja => `${baja.nombre} Cantidad: ${baja.cantidad}`
-        )}` : ''
+        const bajaTension = item.bajaTension.length > 0 ? `Baja Tensión: 
+        <ul>
+            ${item.bajaTension.map(
+                baja => `<li>${baja.nombre} Cantidad: ${baja.cantidad}</li>`
+            )}
+        </ul>
+        ` : ''
         const mediaTension = item.mediaTension.length > 0 ? `Media Tensión: ${item.mediaTension.map(
             media => `${media.nombre} Cantidad: ${media.cantidad}`
         )}` : ''
