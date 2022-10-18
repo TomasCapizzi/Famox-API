@@ -1,14 +1,14 @@
-const conectoresController = {};
-const Conector = require('../models/Conectores');
+const obrasController = {};
+const Obra = require('../models/Obras');
 
 const getProducts = async (req,res) => {
-    const products =  await Conector.find();
+    const products =  await Obra.find();
     res.json({products});
 }
 const createProduct = (req,res) => {
-    const {nombre, img } =  req.body;
-    let product = new Conector({
-        nombre,
+    const {obra, img } =  req.body;
+    let product = new Obra({
+        obra,
         img,
     })
     product.save((err, product)=>{
@@ -19,7 +19,7 @@ const createProduct = (req,res) => {
 }
 
 const getProductById = (req,res) => {
-    Conector.findById(req.params.id, (err, product)=>{
+    Obra.findById(req.params.id, (err, product)=>{
         err && res.status(500).send(err.message);
 
         res.status(200).json(product)

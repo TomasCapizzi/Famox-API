@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 
-const conectoresSchema = new Schema({
-    nombre: {
+const obrasSchema = new Schema({
+    obra: {
         type: String,
         required: true
     },
@@ -11,4 +11,4 @@ const conectoresSchema = new Schema({
 
 })
 
-module.exports = model('Conector', conectoresSchema) 
+module.exports = model('Obra', obrasSchema) 
