@@ -9,7 +9,7 @@ const obraSchema = new Schema({
         type: String
     },
     instalacion: {
-        type: String
+        type: Array
     }
 
 })
