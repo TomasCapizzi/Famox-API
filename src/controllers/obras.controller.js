@@ -6,10 +6,11 @@ const getProducts = async (req,res) => {
     res.json({products});
 }
 const createProduct = (req,res) => {
-    const {obra, img } =  req.body;
+    const {obra, img, instalacion } =  req.body;
     let product = new Obra({
         obra,
         img,
+        instalacion,
     })
     product.save((err, product)=>{
         err && res.status(500).send(err.message);
