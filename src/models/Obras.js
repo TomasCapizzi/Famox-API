@@ -6,7 +6,7 @@ const obraSchema = new Schema({
         required: true
     },
     img: {
-        type: String
+        type: Array
     },
     instalacion: {
         type: Array
