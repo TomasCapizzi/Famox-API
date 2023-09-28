@@ -32,7 +32,7 @@ const postContacto = async (req,res) => {
     })
 
     const mailOptions = {
-        from: `Contacto desde ${empresa} <${email}>`, //Nuestro correo y servidor q nos avisa
+        from: `Contacto desde ${empresa} <info@famox.com.ar>`, //Nuestro correo y servidor q nos avisa
         to: 'atencion.cliente@famox.com.ar',
         subject: asunto,
         html: contenidoMail
