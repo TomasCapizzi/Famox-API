@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const llamadoresSchema = new Schema({
+const equiposDigitalesSchema = new Schema({
     nombre: {
         type: String,
         required: true
@@ -19,4 +19,4 @@ const llamadoresSchema = new Schema({
     modelos_: {type: Array}
 })
 
-module.exports = model('Llamadores', llamadoresSchema)
+module.exports = model('EquiposDigitales', equiposDigitalesSchema)

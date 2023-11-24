@@ -1,13 +1,13 @@
-const Llamadores = require('../models/Llamadores');
+const EquiposDigitales = require('../models/EquiposDigitales');
 
 const getProducts = async (req,res) => {
-    const products =  await Llamadores.find();
+    const products =  await EquiposDigitales.find();
     res.json({products});
 }
 
 const createProduct = (req,res) => {
     const {nombre, uso, img, anmat, manual, modelos } =  req.body;
-    let product = new Llamadores({
+    let product = new EquiposDigitales({
         nombre,
         uso,
         anmat,
@@ -17,13 +17,12 @@ const createProduct = (req,res) => {
     })
     product.save((err, product)=>{
         err && res.status(500).send(err.message);
-
         res.status(200).json(product);
     })
 }
 
 const getProductById = (req,res) => {
-    Llamadores.findById(req.params.id, (err, product)=>{
+    EquiposDigitales.findById(req.params.id, (err, product)=>{
         err && res.status(500).send(err.message);
 
         res.status(200).json(product)
