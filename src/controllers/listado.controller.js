@@ -2,7 +2,7 @@ const Modelos = require('../models/Modelos');
 const Gasoterapia = require('../models/Gasoterapia');
 const Accesorios = require('../models/Accesorios');
 const UnidadesSuministro = require('../models/UnidadesSuministro');
-const Llamadores = require('../models/Llamadores');
+const EquiposDigitales = require('../models/EquiposDigitales');
 
 
 const getProducts = async (req,res) => {
@@ -10,14 +10,14 @@ const getProducts = async (req,res) => {
     const gasoterapia =  await Gasoterapia.find();
     const accesorios = await Accesorios.find();
     const unidadesSuministro = await UnidadesSuministro.find();  
-    const llamadores = await Llamadores.find();  
+    const equiposDigitales = await EquiposDigitales.find();  
 
     const products = {
         modelos,
         gasoterapia,
         accesorios,
         unidadesSuministro,
-        llamadores
+        equiposDigitales
     }
     res.json({products})
 }
