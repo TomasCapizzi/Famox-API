@@ -100,7 +100,7 @@ const postCotizacion = async (req,res) => {
 
     const mailOptions = {
         from: `Pedido proveniente desde ${empresa} <info@famox.com.ar>`, //Nuestro correo y servidor q nos avisa
-        to: 'ventas@famox.com.ar',
+        to: 'ventas@famox.com.ar, tomas.capizzi@famox.com.ar',
         subject: 'Pedido de Cotización',
         html: contenidoMail
     }
