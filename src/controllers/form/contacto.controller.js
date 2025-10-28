@@ -3,9 +3,14 @@ const nodemailer = require('nodemailer')
 
 const postContacto = async (req,res) => {
     console.log(req.body);
-    const {nombre,empresa, email, asunto, mensaje} = req.body;
+    const {nombre,empresa, email, asunto, mensaje, extra_field} = req.body;
 
     //////// Mail para atencion al cliente famox ///////////////////
+
+    if (extra_field && extra_field.trim() !== "") {
+        console.log("🚫 Spam detectado, se descarta el envío");
+        return res.status(400).json({ success: false, error: "Spam detectado" });
+    }
     contenidoMail = `
     <h1>${asunto}</h1>
     <ul>
