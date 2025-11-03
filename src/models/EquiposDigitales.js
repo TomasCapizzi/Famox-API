@@ -5,13 +5,11 @@ const equiposDigitalesSchema = new Schema({
         es: {type: String},
         en: {type: String},
         pt: {type: String},
-        required: true
     },
     uso: {
         es: {type: String},
         en: {type: String},
         pt: {type: String},
-        required: true
     },
     anmat: {
         type: Boolean,
