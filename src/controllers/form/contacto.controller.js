@@ -11,6 +11,7 @@ const postContacto = async (req,res) => {
         console.log("🚫 Spam detectado, se descarta el envío");
         return res.status(400).json({ success: false, error: "Spam detectado" });
     }
+    
     contenidoMail = `
     <h1>${asunto}</h1>
     <ul>

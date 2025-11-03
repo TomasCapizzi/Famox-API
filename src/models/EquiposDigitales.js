@@ -2,11 +2,15 @@ const {Schema, model} = require('mongoose');
 
 const equiposDigitalesSchema = new Schema({
     nombre: {
-        type: String,
+        es: {type: String},
+        en: {type: String},
+        pt: {type: String},
         required: true
     },
     uso: {
-        type: String,
+        es: {type: String},
+        en: {type: String},
+        pt: {type: String},
         required: true
     },
     anmat: {
