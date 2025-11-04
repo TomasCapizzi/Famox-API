@@ -2,11 +2,11 @@ const {Schema, model} = require('mongoose');
 
 const accesoriosSchema = new Schema({
     nombre: {
-        type: String,
+        type: Object,
         required: true
     },
     descripcion: {
-        type: String,
+        type: Object,
         required: true
     },
     img: {
