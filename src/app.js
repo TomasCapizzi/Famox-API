@@ -21,7 +21,16 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 //middlewares
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://famox.com.ar" // si tenés dominio productivo, agregarlo
+];
 app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true
+}));
 app.use(express.json());
 
 //routes
