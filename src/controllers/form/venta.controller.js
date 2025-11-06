@@ -183,7 +183,7 @@ const postCotizacion = async (req, res) => {
           ? `<b>${title}:</b><ul>${arr.map(mapFn).join('')}</ul>`
           : '';
       return `
-        <h5>${item.nombre.toUpperCase()}</h5>
+        <h5>${item.nombre.es.toUpperCase()}</h5>
         ${list('Baja Tensión', item.bajaTension, (b) => `<li>${b.nombre} - Cant: ${b.cantidad}</li>`)}
         ${list('Media Tensión', item.mediaTension, (m) => `<li>${m.nombre} - Cant: ${m.cantidad}</li>`)}
         ${list('Iluminación', item.iluminacion, (i) => `<li>${i.nombre} - Cant: ${i.cantidad}</li>`)}
