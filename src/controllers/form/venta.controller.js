@@ -170,7 +170,7 @@ const postCotizacion = async (req, res) => {
 
     // --- Helpers ---
     const gasoterapiaItem = (item) => `
-      <h5>${item.nombre.toUpperCase()}</h5>
+      <h5>${item.nombre.es.toUpperCase()}</h5>
       <ul>
         <li>Código: <b>${item.codigo}</b></li>
         <li>Cantidad: ${item.cantidad}</li>
