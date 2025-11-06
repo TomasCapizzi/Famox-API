@@ -1,4 +1,4 @@
-require('dotenv').config();
+/*require('dotenv').config();
 const nodemailer = require('nodemailer')
 
 const postCotizacion = async (req,res) => {
@@ -160,3 +160,98 @@ const mostrarCotizacion = (req,res) => {
 }
 
 module.exports = {postCotizacion, mostrarCotizacion}
+*/
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+
+const postCotizacion = async (req, res) => {
+  try {
+    const { nombre, empresa, email, carro } = req.body;
+
+    // --- Helpers ---
+    const gasoterapiaItem = (item) => `
+      <h5>${item.nombre.toUpperCase()}</h5>
+      <ul>
+        <li>Código: <b>${item.codigo}</b></li>
+        <li>Cantidad: ${item.cantidad}</li>
+      </ul>
+    `;
+
+    const unidSumItem = (item) => {
+      const list = (title, arr, mapFn) =>
+        arr.length > 0
+          ? `<b>${title}:</b><ul>${arr.map(mapFn).join('')}</ul>`
+          : '';
+      return `
+        <h5>${item.nombre.toUpperCase()}</h5>
+        ${list('Baja Tensión', item.bajaTension, (b) => `<li>${b.nombre} - Cant: ${b.cantidad}</li>`)}
+        ${list('Media Tensión', item.mediaTension, (m) => `<li>${m.nombre} - Cant: ${m.cantidad}</li>`)}
+        ${list('Iluminación', item.iluminacion, (i) => `<li>${i.nombre} - Cant: ${i.cantidad}</li>`)}
+        ${list('Conexiones', item.conexiones, (c) => `<li>${c.conector} + ${c.gas} / Cant: ${c.cantidad}</li>`)}
+        ${item.longitud ? `<p>Longitud: ${item.longitud}</p>` : ''}
+        <br>
+      `;
+    };
+
+    const contenidoMail = `
+      <h1>Pedido ${empresa}</h1>
+      <ul>
+        <li>Nombre: ${nombre}</li>
+        <li>Empresa: ${empresa}</li>
+        <li>Email: ${email}</li>
+      </ul>
+      <h5>Pedido</h5>
+      ${carro
+        .map((item) =>
+          item.codigo
+            ? `GASOTERAPIA:<br>${gasoterapiaItem(item)}`
+            : `UNIDAD SUMINISTRO:<br>${unidSumItem(item)}`
+        )
+        .join('')}
+    `;
+
+    // --- Transporter común ---
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.famox.com.ar',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER2,
+        pass: process.env.SMTP_KEY2,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+
+    // --- Enviar a ventas ---
+    await transporter.sendMail({
+      from: `Pedido desde ${empresa} <info@famox.com.ar>`,
+      to: 'ventas@famox.com.ar, tomas.capizzi@famox.com.ar',
+      subject: 'Pedido de Cotización',
+      html: contenidoMail,
+    });
+
+    // --- Enviar al usuario ---
+    const contenidoMailUsuario = `
+      <h3>Famox SA</h3>
+      <p>En breve le enviaremos la cotización de su pedido.</p>
+    `;
+
+    await transporter.sendMail({
+      from: 'Famox <ventas@famox.com.ar>',
+      to: email,
+      subject: 'Contacto desde Famox SA',
+      html: contenidoMailUsuario,
+    });
+
+    // ✅ Solo una respuesta final
+    return res.status(200).json({ ok: true, message: 'Mails enviados correctamente' });
+
+  } catch (error) {
+    console.error('Error enviando mail:', error);
+    return res.status(500).json({ ok: false, error: error.message });
+  }
+};
+
+const mostrarCotizacion = (req, res) => res.send('Pedido Confirmado');
+
+module.exports = { postCotizacion, mostrarCotizacion };
