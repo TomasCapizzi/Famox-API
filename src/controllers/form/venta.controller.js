@@ -177,21 +177,50 @@ const postCotizacion = async (req, res) => {
       </ul>
     `;
 
-    const unidSumItem = (item) => {
-      const list = (title, arr, mapFn) =>
-        arr.length > 0
-          ? `<b>${title}:</b><ul>${arr.map(mapFn).join('')}</ul>`
-          : '';
-      return `
-        <h5>${item.nombre.es.toUpperCase()}</h5>
-        ${list('Baja Tensión', item.bajaTension, (b) => `<li>${b.nombre} - Cant: ${b.cantidad}</li>`)}
-        ${list('Media Tensión', item.mediaTension, (m) => `<li>${m.nombre} - Cant: ${m.cantidad}</li>`)}
-        ${list('Iluminación', item.iluminacion, (i) => `<li>${i.nombre} - Cant: ${i.cantidad}</li>`)}
-        ${list('Conexiones', item.conexiones, (c) => `<li>${c.conector} + ${c.gas} / Cant: ${c.cantidad}</li>`)}
-        ${item.longitud ? `<p>Longitud: ${item.longitud}</p>` : ''}
-        <br>
-      `;
-    };
+    const unidSumItem = (item)=> {
+
+            const bajaTension = item.bajaTension.length > 0 ? `Baja Tensión: 
+            <ul>
+                ${item.bajaTension.map(
+                    baja => `<li>${baja.nombre} Cantidad: ${baja.cantidad}</li>`
+                )}
+            </ul>
+            ` : ''
+            const mediaTension = item.mediaTension.length > 0 ? `Media Tensión: 
+            <ul>
+                ${item.mediaTension.map(
+                    media => `<li>${media.nombre} Cantidad: ${media.cantidad}</li>`
+                )}
+            </ul>
+            ` : ''
+            const iluminacion = item.iluminacion.length > 0 ? `Iluminación: 
+            <ul>
+                ${item.iluminacion.map(
+                    ilu => `<li>${ilu.nombre} Cantidad: ${ilu.cantidad}</li>`
+                )}
+            </ul>
+            ` : ''
+            const conexiones = item.conexiones.length > 0 ?  `Conexiones: 
+            <ul>
+                ${item.conexiones.map(
+                    conex => `<li>${conex.conector} + ${conex.gas} / Cantidad: ${conex.cantidad}</li>`
+                )}
+            </ul>
+            ` : ''
+            const longitud = item.longitud ? `Longitud: ${item.longitud}` : ''
+
+            return `
+                <h5>${item.nombre.es.toUpperCase()}</h5>
+                <ul>
+                    <li>${conexiones}</li>
+                    <li>${bajaTension}</li>
+                    <li>${mediaTension}</li>
+                    <li>${iluminacion}</li>
+                    <li>${longitud} </li>
+                </ul>
+                <br>   
+            `
+        }
 
     const contenidoMail = `
       <h1>Pedido ${empresa}</h1>
