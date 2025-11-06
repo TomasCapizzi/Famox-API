@@ -27,23 +27,26 @@ const allowedOrigins = [
   "https://www.famox.com.ar"
 ];
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+// 🔹 Middleware de CORS
+app.use(cors({
+  origin: function (origin, callback) {
+    // permitir requests sin origen (como en Postman o curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      console.log('Origen bloqueado por CORS:', origin);
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
+// Necesario para los preflight requests OPTIONS
+app.options('*', cors());
 
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //routes
 app.use('/api/products', mainRouter);
