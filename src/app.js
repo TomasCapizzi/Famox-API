@@ -23,8 +23,10 @@ app.use(bodyParser.json());
 //middlewares
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://famox.com.ar" // si tenés dominio productivo, agregarlo
+  "https://famox.com.ar",
+  "https://www.famox.com.ar"
 ];
+
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
