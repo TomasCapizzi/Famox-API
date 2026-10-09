@@ -50,6 +50,9 @@ const gasoterapiaSchema = new Schema({
         type: String,
         required: false
     },
+    slug: {
+        type: String,
+    },
 })
 
 module.exports = model('Gasoterapia', gasoterapiaSchema);

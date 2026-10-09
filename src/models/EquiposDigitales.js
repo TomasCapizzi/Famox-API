@@ -18,7 +18,10 @@ const equiposDigitalesSchema = new Schema({
     manual: {type: String},
     img: {type: String},
     modelos: {type: Boolean},
-    modelos_: {type: Array}
+    modelos_: {type: Array},
+    slug: {
+        type: String,
+    },
 })
 
 module.exports = model('EquiposDigitales', equiposDigitalesSchema)

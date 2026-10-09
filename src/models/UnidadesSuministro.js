@@ -18,7 +18,10 @@ const unidadesSuministrosSchema = new Schema({
     img: {type: String},
     gas: {type: Boolean},
     conexion: {type: Boolean},
-    modelos: {type: Boolean}
+    modelos: {type: Boolean},
+    slug: {
+        type: String,
+    },
 })
 
 module.exports = model('UnidadesSuministro', unidadesSuministrosSchema)

@@ -12,7 +12,10 @@ const accesoriosSchema = new Schema({
     img: {
         type: String,
         required: false
-    }
+    },
+    slug: {
+        type: String,
+    },
 })
 
 module.exports = model('Accesorios', accesoriosSchema)

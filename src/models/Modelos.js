@@ -21,7 +21,10 @@ const modelosSchema = new Schema({
     },
     origen: {
         type: String
-    }
+    },
+    slug: {
+        type: String,
+    },
 })
 
 module.exports = model('Modelos', modelosSchema)

@@ -10,7 +10,10 @@ const obraSchema = new Schema({
     },
     instalacion: {
         type: Object
-    }
+    },
+    slug: {
+        type: String,
+    },
 
 })
 
